@@ -1,39 +1,23 @@
 #!/usr/bin/env python
 
-import dasbus
+from dasbus.server.interface import dbus_interface
+from dasbus.typing import Str
+
+@dbus_interface("org.example.HelloWorld")
+class HelloWorld(object):
+
+    def Hello(self, name: Str) -> Str:
+        return "Hello {}!".format(name)
+
+print(HelloWorld.__dbus_xml__)
+
 
 from dasbus.connection import SessionMessageBus
 bus = SessionMessageBus()
+bus.publish_object("/org/example/HelloWorld", HelloWorld())
+bus.register_service("org.example.HelloWorld")
 
-# Create an object that will be a proxy for a particular remote object.
-remote_object = bus.get_proxy(
-    "org.freedesktop.Notifications",  # The bus name
-    "/org/freedesktop/Notifications",  # The object path
-    # "org.freedesktop.DBus.Introspectable" # The interface
-    "org.freedesktop.Notifications" # The interface
-)
+from dasbus.loop import EventLoop
+loop = EventLoop()
+loop.run()
 
-# Call the Introspect method of the remote object.
-print(remote_object.Notify("asdasd", 0, "important", "Notification title!!!", "get nofitied scrub", [], [], 0))
-
-
-# <method name="Notify">
-#       <arg type="s" name="arg_0" direction="in">
-#       </arg>
-#       <arg type="u" name="arg_1" direction="in">
-#       </arg>
-#       <arg type="s" name="arg_2" direction="in">
-#       </arg>
-#       <arg type="s" name="arg_3" direction="in">
-#       </arg>
-#       <arg type="s" name="arg_4" direction="in">
-#       </arg>
-#       <arg type="as" name="arg_5" direction="in">
-#       </arg>
-#       <arg type="a{sv}" name="arg_6" direction="in">
-#       </arg>
-#       <arg type="i" name="arg_7" direction="in">
-#       </arg>
-#       <arg type="u" name="arg_8" direction="out">
-#       </arg>
-#     </method>
