@@ -24,11 +24,16 @@ class YeelightBulbController(object):
 		bulb.toggle()
 
 	def ModifyBrightness(self, addBrightnessValue: Int):
-		# print(bulb.get_properties(["bright"])["current_brightness"])
 		bulbProperties = bulb.get_properties()
 		newBrightness = int(bulbProperties["bright"]) + addBrightnessValue
 		print("modify brightness to ", newBrightness)
 		bulb.set_brightness(newBrightness)
+
+	def ModifyColorTemp(self, addColorTempValue: Int):
+		bulbProperties = bulb.get_properties()
+		newColorTemp = int(bulbProperties["ct"]) + addColorTempValue
+		print("modify color temp to ", newColorTemp)
+		bulb.set_color_temp(newColorTemp)
 
 # print(YeelightBulbController.__dbus_xml__)
 
