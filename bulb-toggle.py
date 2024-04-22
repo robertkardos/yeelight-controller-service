@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 
-import dasbus
-
 from dasbus.connection import SessionMessageBus
-bus = SessionMessageBus()
 
-# Create an object that will be a proxy for a particular remote object.
+bus = SessionMessageBus()
 remote_object = bus.get_proxy(
-    "org.example.HelloWorld",  # The bus name
-    "/org/example/HelloWorld",  # The object path
-    "org.example.HelloWorld" # The interface
+    "org.example.YeelightBulbController", # The bus name
+    "/org/example/YeelightBulbController", # The object path
+    "org.example.YeelightBulbController" # The interface
 )
 
-# Call the Introspect method of the remote object.
-print(remote_object.Hello("QWEQWE"))
+remote_object.Toggle()
