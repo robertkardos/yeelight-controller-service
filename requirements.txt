@@ -1,2 +1,8 @@
 dasbus==1.7
 PyGObject==3.48.2
+dasbus==1.7
+future==1.0.0
+ifaddr==0.2.0
+pycairo==1.26.0
+PyGObject==3.48.2
+yeelight==0.7.14
